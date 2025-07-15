@@ -5,3 +5,4 @@ main/certs/certificate_pem_crt
 main/certs/private_pem_key
 sdkconfig
 sdkconfig.backup
+.vscode
