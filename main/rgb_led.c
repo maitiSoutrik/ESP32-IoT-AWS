@@ -104,7 +104,7 @@ void rgb_led_http_server_started(void)
 		rgb_led_pwm_init();
 	}
 
-	rgb_led_set_color(204, 255, 51);
+	rgb_led_set_color(123, 102, 255);
 }
 
 
@@ -116,6 +116,24 @@ void rgb_led_wifi_connected(void)
 	}
 
 	rgb_led_set_color(0, 255, 153);
+}
+
+void rgb_led_ap_client_connected(void)
+{
+    if (g_pwm_init_handle == false)
+    {
+        rgb_led_pwm_init();
+    }
+    rgb_led_set_color(255, 255, 0); // Yellow
+}
+
+void rgb_led_ap_client_disconnected(void)
+{
+	if (g_pwm_init_handle == false)
+	{
+		rgb_led_pwm_init();
+	}
+	rgb_led_set_color(255, 0, 0); // Red
 }
 
 

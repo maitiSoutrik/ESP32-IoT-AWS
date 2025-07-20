@@ -71,10 +71,14 @@ static void wifi_app_event_handler(void *arg, esp_event_base_t event_base, int32
 
 		case WIFI_EVENT_AP_STACONNECTED:
 			ESP_LOGI(TAG, "WIFI_EVENT_AP_STACONNECTED");
+			rgb_led_ap_client_connected();
 			break;
 
 		case WIFI_EVENT_AP_STADISCONNECTED:
 			ESP_LOGI(TAG, "WIFI_EVENT_AP_STADISCONNECTED");
+			rgb_led_ap_client_disconnected();
+			vTaskDelay(pdMS_TO_TICKS(5000)); // Delay to allow the LED to show the disconnected state
+			rgb_led_http_server_started(); // Reset the LED to indicate HTTP server started
 			break;
 
 		case WIFI_EVENT_STA_START:

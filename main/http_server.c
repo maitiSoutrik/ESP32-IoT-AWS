@@ -100,7 +100,8 @@ static void http_server_monitor(void *parameter)
 					ESP_LOGI(TAG, "HTTP_MSG_WIFI_CONNECT_INIT");
 					
 					g_wifi_connect_status = HTTP_WIFI_STATUS_CONNECTING;
-					break;
+
+					break;
 
 				case HTTP_MSG_WIFI_CONNECT_SUCCESS:
 					ESP_LOGI(TAG, "HTTP_MSG_WIFI_CONNECT_SUCCESS");
@@ -530,11 +531,11 @@ static httpd_handle_t http_server_configure(void)
 	// Generate the default configuration
 	httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 
-	// Create HTTP server monitor task
-	xTaskCreatePinnedToCore(&http_server_monitor, "http_server_monitor", HTTP_SERVER_MONITOR_STACK_SIZE, NULL, HTTP_SERVER_MONITOR_PRIORITY, &task_http_server_monitor, HTTP_SERVER_MONITOR_CORE_ID);
-
 	// Create the message queue
 	http_server_monitor_queue_handle = xQueueCreate(3, sizeof(http_server_queue_message_t));
+
+	// Create HTTP server monitor task
+	xTaskCreatePinnedToCore(&http_server_monitor, "http_server_monitor", HTTP_SERVER_MONITOR_STACK_SIZE, NULL, HTTP_SERVER_MONITOR_PRIORITY, &task_http_server_monitor, HTTP_SERVER_MONITOR_CORE_ID);
 
 	// The core that the HTTP server will run on
 	config.core_id = HTTP_SERVER_TASK_CORE_ID;
